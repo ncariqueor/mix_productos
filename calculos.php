@@ -88,7 +88,4 @@ function mix_por_depto_vev($mix, $fecha)
     }
 }
 
-function mix_por_marca($mix, $fecha){
-
-}
 
