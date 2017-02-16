@@ -21,7 +21,7 @@
                     existentes.</p>
 
                     <div class="table-responsive">
-                        <table class="table table-bordered table-responsive" style="width: 50%; margin: 0 auto;">
+                        <table class="table table-bordered" style="width: 50%; margin: 0 auto;">
                             <thead>
                                 <tr>
                                     <th class="text-center">Estilo</th>
@@ -137,6 +137,85 @@
                         ?>
 
                         </table>
+                    </div>
+
+                     <br>
+
+                    <div class="panel panel-info" style="width: 800px; margin: 0 auto;">
+                        <div class="panel-heading">
+                            <h5 class="text-center">Query Stock en Paris.cl (Vista Disponibilidad)</h5>
+                        </div>
+
+                        <div class="panel-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Cláusula</th>
+                                    <th>Campos</th>
+                                    <th>Descripción Campos</th>
+                                </tr>
+                                </thead>
+                                <tr style="height: 50px; vertical-align: top;">
+                                    <td style="width: 200px;"><b>SELECT</b></td>
+                                    <td>(1) CA14.ITEM_CBO.ITEM_NAME,<br>(2) CA14.ITEM_CBO.DESCRIPTION,<br>(3) CA14.I_AVAILABILITY_6.ATC_QUANTITY<br></td>
+                                    <td>
+                                        (1) Es el SKU obtenido de la Vista Disponibilidad (EOM). Este campo está compuesto
+                                        por 9 dígitos y para hacerlos coincidir con el stock de tienda, se deben
+                                        quitar los últimos 3.<br>
+                                        Ejemplo: <br>SKU  => 123456789<br>Estilo => 123456<br><br>
+                                        (2) Es la descripción del SKU, obtenido de la Vista Disponbilidad (EOM) <br><br>
+                                        (3) Es la cantidad (stock) disponible para la venta, obtenido de Vista Disponibilidad(EOM).
+                                    </td>
+                                </tr>
+                                <tr style="height: 50px; vertical-align: top;">
+                                    <td style="width: 200px;"><b>FROM</b></td>
+                                    <td>CA14.I_AVAILABILITY_6 INNER JOIN CA14.ITEM_CBO ON CA14.I_AVAILABILITY_6.ITEM_ID = CA14.ITEM_CBO.ITEM_ID</td>
+                                </tr>
+                                <tr style="height: 50px; vertical-align: top;">
+                                    <td style="width: 200px;"><b>WHERE</b></td>
+                                    <td>(((CA14.I_AVAILABILITY_6.ATC_QUANTITY) Is Not Null And (CA14.I_AVAILABILITY_6.ATC_QUANTITY)>0)) order by CA14.ITEM_CBO.ITEM_NAME ASC</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <br><br>
+
+                    <div class="panel panel-info" style="width: 800px; margin: 0 auto;">
+                        <div class="panel-heading">
+                            <h5 class="text-center">Query Stock en Tienda</h5>
+                        </div>
+
+                        <div class="panel-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Cláusula</th>
+                                    <th>Campos</th>
+                                    <th>Descripción Campos</th>
+                                </tr>
+                                </thead>
+                                <tr style="height: 50px; vertical-align: top;">
+                                    <td style="width: 200px;"><b>SELECT</b></td>
+                                    <td>EXKPF01.ESTILO,<br>(1) EXKPF01.DEP,<br>EXKPF01.ESTACION,<br>
+                                        (2) GGREFX.FECING,<br> EXKPF01.TEMPOR,<br>GGREFX.SUBDEP,<br>GGREFX.DES,
+                                        <br>EXKPF01.PRENOR,<br>EXKPF01.CODMAR,<br>GGREFX.<b>$suni</b>,<br>EXKPF01.ORIGEN</td>
+                                    <td>
+                                        (1) Estilo obtenido de AS400.<br><br>
+                                        (2) Fecha de ingreso del estilo.<br><br>
+                                        (3) Es la cantidad (stock) disponible para la venta, obtenido de Vista Disponibilidad(EOM).
+                                    </td>
+                                </tr>
+                                <tr style="height: 50px; vertical-align: top;">
+                                    <td style="width: 200px;"><b>FROM</b></td>
+                                    <td>RDBPARIS2.EXGCBUGD.EXKPF01 EXKPF01, RDBPARIS2.EXGCBUGD.GGREFX GGREFX</td>
+                                </tr>
+                                <tr style="height: 50px; vertical-align: top;">
+                                    <td style="width: 200px;"><b>WHERE</b></td>
+                                    <td>GGREFX.REF = EXKPF01.REF AND GGREFX.DEP = $depto1 AND GGREFX.$suni > 0 AND GGREFX.FECING >= (3 meses en el pasado) order by EXKPF01.ESTILO ASC</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -23,7 +23,7 @@
                     <div class="col-md-12"><h3 class="text-center"><a href="http://10.95.17.114/paneles"><img src="../paris.png" width="140px" height="100px" title="Reportes Paris"></a> Informe Mix de Productos</h3></div>
                 </div><br>
 
-                <form action="index.php" method="get" class="row" style="margin-left: 300px;">
+                <form action="index.php" method="get" class="row" style="margin-left: 170px;">
                     <div class="col-lg-2">
                         <div class="text-center"><span class="label label-primary" style="font-size: 13px;">Seleccione día actual</span></div>
                         <div class="input-group date" data-provide="datepicker">
@@ -50,6 +50,10 @@
 
                     <div class="col-lg-2 col-md-2"><br>
                         <a id="export" href="#" class="btn btn-success"><span class="glyphicon glyphicon-export"></span> Base Mix de Productos</a>
+                    </div>
+
+                    <div class="col-lg-2 col-md-2" style="margin-left: 70px;"><br>
+                        <a id="export" href="glosario.php" class="btn btn-info"><span class="glyphicon glyphicon-info-sign"></span> Base Mix de Productos</a>
                     </div>
                 </form>
             </nav>
